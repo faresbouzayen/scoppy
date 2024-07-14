@@ -12,6 +12,7 @@ public class AuditLog {
     private Long id;
 
     private String action;
+    @Column(name = "\"user\"")
     private String user;
     private LocalDateTime timestamp;
     private String details;

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Teams</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .actions {
+            text-align: center;
+        }
+        .actions a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #333;
+        }
+        .actions a.edit {
+            color: #28a745;
+        }
+        .actions a.delete {
+            color: #dc3545;
+        }
+        .actions a.view {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Teams</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Department</th>
+            <th>Lead</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="team : ${teams}">
+            <td th:text="${team.id}">1</td>
+            <td th:text="${team.name}">Team Name</td>
+            <td th:text="${team.status}">Status</td>
+            <td th:text="${team.department}">Department</td>
+            <td th:text="${team.lead}">Lead</td>
+            <td class="actions">
+                <a th:href="@{'/teams/' + ${team.id}}" class="view">View</a>
+                <a th:href="@{'/teams/edit/' + ${team.id}}" class="edit">Edit</a>
+                <a th:href="@{'/teams/delete/' + ${team.id}}" class="delete">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

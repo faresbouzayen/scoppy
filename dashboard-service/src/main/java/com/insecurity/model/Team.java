@@ -3,6 +3,7 @@ package com.insecurity.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,6 +21,7 @@ public class Team {
     private LocalDate createdDate;
     private LocalDate modifiedDate;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Project> projects;
+    @OneToMany(mappedBy = "team")
+    private List<Project> projects;
+
 }

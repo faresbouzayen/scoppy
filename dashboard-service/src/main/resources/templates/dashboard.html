@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        }
+        .section h2 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            color: #333;
+        }
+        .section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .section ul li {
+            margin-bottom: 5px;
+        }
+        .section ul li a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .section ul li a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to the Dashboard</h1>
+
+    <div class="section">
+        <h2>Projects</h2>
+        <ul>
+            <li><a th:href="@{/projects}">View All Projects</a></li>
+            <li><a th:href="@{/projects/create}">Create New Project</a></li>
+            <li><a th:href="@{/projects/filter}">Filter Projects</a></li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Reports</h2>
+        <ul>
+            <li><a th:href="@{/reports}">View All Reports</a></li>
+            <li><a th:href="@{/reports/create}">Create New Report</a></li>
+            <li><a th:href="@{/reports/filter}">Filter Reports</a></li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Scan Configurations</h2>
+        <ul>
+            <li><a th:href="@{/scan-configs}">View All Scan Configurations</a></li>
+            <li><a th:href="@{/scan-configs/create}">Create New Scan Configuration</a></li>
+            <li><a th:href="@{/scan-configs/filter}">Filter Scan Configurations</a></li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Scan Results</h2>
+        <ul>
+            <li><a th:href="@{/scan-results}">View All Scan Results</a></li>
+            <li><a th:href="@{/scan-results/create}">Create New Scan Result</a></li>
+            <li><a th:href="@{/scan-results/filter}">Filter Scan Results</a></li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Teams</h2>
+        <ul>
+            <li><a th:href="@{/teams}">View All Teams</a></li>
+            <li><a th:href="@{/teams/create}">Create New Team</a></li>
+            <li><a th:href="@{/teams/filter}">Filter Teams</a></li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Vulnerabilities</h2>
+        <ul>
+            <li><a th:href="@{/vulnerabilities}">View All Vulnerabilities</a></li>
+            <li><a th:href="@{/vulnerabilities/create}">Create New Vulnerability</a></li>
+            <li><a th:href="@{/vulnerabilities/filter}">Filter Vulnerabilities</a></li>
+        </ul>
+    </div>
+
+    <!-- Notifications -->
+    <div class="section">
+        <h2>Notifications</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Recipient</th>
+                <th>Type</th>
+                <th>Content</th>
+                <th>Date</th>
+                <th>Project</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="notification : ${notifications}">
+                <td th:text="${notification.id}">1</td>
+                <td th:text="${notification.recipient}">Recipient</td>
+                <td th:text="${notification.type}">Type</td>
+                <td th:text="${notification.content}">Content</td>
+                <td th:text="${notification.date}">Date</td>
+                <td th:text="${notification.project}">Project</td>
+                <td th:text="${notification.status}">Status</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <button th:if="${totalPages != null && page > 0}" th:onclick="'window.location=\'/notifications?page=' + (${page} - 1) + '&size=' + ${size}'">Previous</button>
+            <button th:if="${totalPages != null && page < totalPages - 1}" th:onclick="'window.location=\'/notifications?page=' + (${page} + 1) + '&size=' + ${size}'">Next</button>
+        </div>
+
+        <form action="#" th:action="@{/notifications/filter}" method="get">
+            <label for="recipient">Recipient:</label>
+            <input type="text" id="recipient" name="recipient" />
+            <label for="type">Type:</label>
+            <input type="text" id="type" name="type" />
+            <label for="startDate">Start Date:</label>
+            <input type="datetime-local" id="startDate" name="startDate" />
+            <label for="endDate">End Date:</label>
+            <input type="datetime-local" id="endDate" name="endDate" />
+            <button type="submit">Filter</button>
+        </form>
+
+        <form action="#" th:action="@{/notifications/mark-read}" method="post">
+            <label for="notificationIds">Notification IDs to mark as read (comma-separated):</label>
+            <input type="text" id="notificationIds" name="notificationIds" />
+            <button type="submit">Mark as Read</button>
+        </form>
+    </div>
+
+    <!-- Audit Logs -->
+    <div class="section">
+        <h2>Audit Logs</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Action</th>
+                <th>Entity Name</th>
+                <th>Entity ID</th>
+                <th>Timestamp</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="log : ${auditLogs}">
+                <td th:text="${log.id}">1</td>
+                <td th:text="${log.user}">User</td>
+                <td th:text="${log.action}">Action</td>
+                <td th:text="${log.entityName}">Entity Name</td>
+                <td th:text="${log.entityId}">123</td>
+                <td th:text="${log.timestamp}">2024-01-01T12:00:00</td>
+                <td th:text="${log.details}">Details</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Assets -->
+    <div class="section">
+        <h2>Asset List</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Owner</th>
+                <th>Project ID</th>
+                <th>Vulnerabilities</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="asset : ${assets}">
+                <td th:text="${asset.id}">1</td>
+                <td th:text="${asset.name}">Asset Name</td>
+                <td th:text="${asset.type}">Asset Type</td>
+                <td th:text="${asset.status}">Asset Status</td>
+                <td th:text="${asset.owner}">Owner Name</td>
+                <td th:text="${asset.projectId}">123</td>
+                <td th:text="${asset.vulnerabilityCount}">5</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

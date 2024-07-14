@@ -1,4 +1,4 @@
-package com.insecurity.dashboard_service;
+package com.insecurity;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notifications</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<h1>Notifications</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Recipient</th>
+        <th>Type</th>
+        <th>Content</th>
+        <th>Date</th>
+        <th>Project</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="notification : ${notifications}">
+        <td th:text="${notification.id}">1</td>
+        <td th:text="${notification.recipient}">Recipient</td>
+        <td th:text="${notification.type}">Type</td>
+        <td th:text="${notification.content}">Content</td>
+        <td th:text="${notification.date}">Date</td>
+        <td th:text="${notification.project}">Project</td>
+        <td th:text="${notification.status}">Status</td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <button th:if="${page > 0}" th:onclick="'window.location=\'/notifications?page=' + (${page} - 1) + '&size=' + ${size}"'>Previous</button>
+    <button th:if="${page < totalPages - 1}" th:onclick="'window.location=\'/notifications?page=' + (${page} + 1) + '&size=' + ${size}"'>Next</button>
+</div>
+
+<form action="#" th:action="@{/notifications/filter}" method="get">
+    <label for="recipient">Recipient:</label>
+    <input type="text" id="recipient" name="recipient" />
+    <label for="type">Type:</label>
+    <input type="text" id="type" name="type" />
+    <label for="startDate">Start Date:</label>
+    <input type="datetime-local" id="startDate" name="startDate" />
+    <label for="endDate">End Date:</label>
+    <input type="datetime-local" id="endDate" name="endDate" />
+    <button type="submit">Filter</button>
+</form>
+
+<form action="#" th:action="@{/notifications/mark-read}" method="post">
+    <label for="notificationIds">Notification IDs to mark as read (comma-separated):</label>
+    <input type="text" id="notificationIds" name="notificationIds" />
+    <button type="submit">Mark as Read</button>
+</form>
+</body>
+</html>

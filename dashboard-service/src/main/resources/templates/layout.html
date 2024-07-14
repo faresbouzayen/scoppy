@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>VulnScope Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>VulnScope Dashboard</h1>
+    <nav>
+        <a th:href="@{/assets}">Assets</a>
+        <a th:href="@{/vulnerabilities}">Vulnerabilities</a>
+        <!-- Add more links as needed -->
+    </nav>
+</header>
+<div th:replace="fragments/flash :: flash"></div>
+<div th:fragment="content">
+    <!-- This will be replaced with specific content -->
+</div>
+</body>
+</html>

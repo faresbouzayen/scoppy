@@ -23,6 +23,11 @@ public class Project {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Asset> assets;
 
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Notification> notifications;
 }

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Scan Configurations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .actions {
+            text-align: center;
+        }
+        .actions a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #333;
+        }
+        .actions a.edit {
+            color: #28a745;
+        }
+        .actions a.delete {
+            color: #dc3545;
+        }
+        .actions a.view {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Scan Configurations</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Last Modified By</th>
+            <th>Last Modified On</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="scanConfig : ${scanConfigs}">
+            <td th:text="${scanConfig.id}">1</td>
+            <td th:text="${scanConfig.name}">Name</td>
+            <td th:text="${scanConfig.type}">Type</td>
+            <td th:text="${scanConfig.status}">Status</td>
+            <td th:text="${scanConfig.lastModifiedBy}">User</td>
+            <td th:text="${scanConfig.lastModifiedOn}">2024-01-01T12:00:00</td>
+            <td class="actions">
+                <a th:href="@{'/scan-configs/' + ${scanConfig.id}}" class="view">View</a>
+                <a th:href="@{'/scan-configs/edit/' + ${scanConfig.id}}" class="edit">Edit</a>
+                <a th:href="@{'/scan-configs/delete/' + ${scanConfig.id}}" class="delete">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

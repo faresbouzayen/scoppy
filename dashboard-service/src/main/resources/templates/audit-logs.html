@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Audit Logs</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h1>Audit Logs</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Action</th>
+        <th>Entity Name</th>
+        <th>Entity ID</th>
+        <th>Timestamp</th>
+        <th>Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="log : ${auditLogs}">
+        <td th:text="${log.id}">1</td>
+        <td th:text="${log.user}">User</td>
+        <td th:text="${log.action}">Action</td>
+        <td th:text="${log.entityName}">Entity Name</td>
+        <td th:text="${log.entityId}">123</td>
+        <td th:text="${log.timestamp}">2024-01-01T12:00:00</td>
+        <td th:text="${log.details}">Details</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

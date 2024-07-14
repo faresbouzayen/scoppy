@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Scan Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .actions {
+            text-align: center;
+        }
+        .actions a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #333;
+        }
+        .actions a.edit {
+            color: #28a745;
+        }
+        .actions a.delete {
+            color: #dc3545;
+        }
+        .actions a.view {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Scan Results</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Scan Config ID</th>
+            <th>Status</th>
+            <th>Scan Date</th>
+            <th>Scan By</th>
+            <th>Details</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="scanResult : ${scanResults}">
+            <td th:text="${scanResult.id}">1</td>
+            <td th:text="${scanResult.scanConfigId}">1</td>
+            <td th:text="${scanResult.status}">Status</td>
+            <td th:text="${scanResult.scanDate}">2024-01-01T12:00:00</td>
+            <td th:text="${scanResult.scanBy}">User</td>
+            <td th:text="${scanResult.details}">Details</td>
+            <td class="actions">
+                <a th:href="@{'/scan-results/' + ${scanResult.id}}" class="view">View</a>
+                <a th:href="@{'/scan-results/edit/' + ${scanResult.id}}" class="edit">Edit</a>
+                <a th:href="@{'/scan-results/delete/' + ${scanResult.id}}" class="delete">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

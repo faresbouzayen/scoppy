@@ -4,19 +4,32 @@ import com.insecurity.model.Asset;
 import com.insecurity.service.AssetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/assets")
 public class AssetController {
+
     @Autowired
     private AssetService assetService;
 
+    // Method to handle requests for displaying assets as HTML
+    @GetMapping("/html")
+    public String getAllAssets(Model model) {
+        List<Asset> assets = assetService.getAllAssets();
+        model.addAttribute("assets", assets);
+        return "assets"; // This assumes "assets.html" exists under src/main/resources/templates
+    }
+
+    // RESTful endpoint to get all assets as JSON
     @GetMapping
-    public List<Asset> getAllAssets() {
+    @ResponseBody
+    public List<Asset> getAllAssetsRest() {
         return assetService.getAllAssets();
     }
 
@@ -26,7 +39,7 @@ public class AssetController {
         return asset.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/{new}")
     public Asset createAsset(@RequestBody Asset asset) {
         return assetService.saveAsset(asset);
     }

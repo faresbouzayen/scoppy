@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Asset Details</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        /* Add your custom styles here */
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Asset Details</h1>
+    <dl>
+        <dt>ID:</dt>
+        <dd th:text="${asset.id}">1</dd>
+        <dt>Name:</dt>
+        <dd th:text="${asset.name}">Asset Name</dd>
+        <dt>Type:</dt>
+        <dd th:text="${asset.type}">Asset Type</dd>
+        <dt>Status:</dt>
+        <dd th:text="${asset.status}">Asset Status</dd>
+        <dt>Owner:</dt>
+        <dd th:text="${asset.owner}">Owner Name</dd>
+        <dt>Project ID:</dt>
+        <dd th:text="${asset.projectId}">123</dd>
+        <dt>Vulnerabilities:</dt>
+        <dd th:text="${asset.vulnerabilityCount}">5</dd>
+    </dl>
+    <a th:href="@{/assets}" class="button">Back to All Assets</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Assets</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        /* Add your custom styles here */
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>All Assets</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Owner</th>
+            <th>Project ID</th>
+            <th>Vulnerabilities</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="asset : ${assets}">
+            <td th:text="${asset.id}">1</td>
+            <td th:text="${asset.name}">Asset Name</td>
+            <td th:text="${asset.type}">Asset Type</td>
+            <td th:text="${asset.status}">Asset Status</td>
+            <td th:text="${asset.owner}">Owner Name</td>
+            <td th:text="${asset.projectId}">123</td>
+            <td th:text="${asset.vulnerabilityCount}">5</td>
+            <td>
+                <a th:href="@{'/assets/' + ${asset.id}}">View</a> |
+                <a th:href="@{'/assets/' + ${asset.id} + '/edit'}">Edit</a> |
+                <form th:action="@{'/assets/' + ${asset.id}}" method="post">
+                    <input type="hidden" name="_method" value="delete" />
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/assets/new}">Add New Asset</a>
+</div>
+</body>
+</html>

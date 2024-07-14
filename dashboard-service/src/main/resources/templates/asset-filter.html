@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Asset Filter</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        /* Add your custom styles here */
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Filter Assets</h1>
+    <form th:action="@{/assets/filter}" method="get">
+        <label>Status:</label>
+        <input type="text" name="status" />
+        <label>Type:</label>
+        <input type="text" name="type" />
+        <label>Owner:</label>
+        <input type="text" name="owner" />
+        <button type="submit">Filter</button>
+    </form>
+    <a th:href="@{/assets}" class="button">Clear Filters</a>
+</div>
+</body>
+</html>
